@@ -1,3 +1,7 @@
+# should we use our own math functions?
+option (USE_MYMATH
+	"Use tutorial provided math implementation" ON) 
+
 cmake_minimum_required (VERSION 2.6)
 project (Tutorial)
 
@@ -12,9 +16,21 @@ configure_file (
 	"${PROJECT_BINARY_DIR}/TutorialConfig.h"
 )
 
+
 # add the binary tree to the search path for include files
 # so that we will find TutorialConfig.h
 include_directories("${PROJECT_BINARY_DIR}")
 
+if (USE_MYMATH)
+	include_directories("${PROJECT_SOURCE_DIR}/jamath")
+	add_subdirectory (jamath)
+	set (EXTRA_LIBS ${EXTRA_LIBS} jamath)
+
+	add_library(jamath jamath.cpp)
+endif (USE_MYMATH)
+
+
+
 # add the executable
 add_executable(Tutorial tutorial.cxx)
+target_link_libraries(Tutorial ${EXTRA_LIBS})
