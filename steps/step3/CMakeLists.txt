@@ -59,11 +59,11 @@ set_tests_properties (TutorialUsage PROPERTIES PASS_REGULAR_EXPRESSION "Usage:.*
 
 #define a macro to simplify adding tests, then use it
 macro (do_test arg result)
-	add_test (TutorialComp${arg} Tutorial ${arg})
-	set_tests_properties (TutorialComp${arg} PROPERTIES PASS_REGULAR_EXPRESSION ${result})
+	add_test (TutorialCompMacro${arg} Tutorial ${arg})
+	set_tests_properties (TutorialCompMacro${arg} PROPERTIES PASS_REGULAR_EXPRESSION ${result})
 endmacro (do_test)
 
 # do a bunch of result based tests
+do_test (-25 "-25 is nan")
 do_test (25 "25 is 5")
-do_test (-25 "-25 is 0")
 
