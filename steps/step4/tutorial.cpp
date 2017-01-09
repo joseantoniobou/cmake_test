@@ -22,11 +22,16 @@ int main(int argc, char *argv[])
 	double inputValue = atof(argv[1]);
 
 #ifdef USE_MYMATH
+#if defined(HAVE_LOG) && defined(HAVE_EXP)
+	printf("I'm using the exp-log formula\n");
+	double outputValue = exp(log(inputValue)*0.5);
+#else
 	double outputValue = mysqrt(inputValue);
+#endif
 #else
 	double outputValue = sqrt(inputValue);
 #endif
-	fprintf(stdout, "The squeare root of %g is %g\n",
+	fprintf(stdout, "The square root of %g is %g\n",
 				inputValue, outputValue);
 
 	return 0;
